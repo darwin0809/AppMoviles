@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { Page1PageRoutingModule } from './page1-routing.module';
 
 import { Page1Page } from './page1.page';
+import { ElementsModule } from '../elements/elements.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    Page1PageRoutingModule
+    Page1PageRoutingModule,
+    
+    ElementsModule
   ],
   declarations: [Page1Page]
 })
