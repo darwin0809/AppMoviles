@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista de Episodios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ng-container *ngFor="let episodio of episodios">
+      <ion-item 
+        (click)="togglePersonajes(episodio)" 
+        [ngClass]="{'episodio-seleccionado': episodioSeleccionado === episodio}">
+        {{ episodio.name }} - {{ episodio.episode }}
+      </ion-item>
+
+
+      <div *ngIf="episodioSeleccionado === episodio" class="personajes-contenedor">
+        <ion-list>
+          <ion-item *ngFor="let personaje of personajes">
+            <ion-avatar slot="start">
+              <img [src]="personaje.image" alt="{{ personaje.name }}" />
+            </ion-avatar>
+            {{ personaje.name }} - {{ personaje.species }}
+          </ion-item>
+        </ion-list>
+      </div>
+    </ng-container>
+  </ion-list>
+</ion-content>
