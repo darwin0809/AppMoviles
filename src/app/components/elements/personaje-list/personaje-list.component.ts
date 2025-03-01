@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-personaje-list',
   templateUrl: './personaje-list.component.html',
@@ -9,17 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PersonajeListComponent implements OnInit {
 
-
   @Input() personajes: any[] = [];
   @Input() titulo: string = '';
   @Input() subtitulo: string = '';
 
-
   constructor() { }
 
-
   ngOnInit() { }
-
-
 }
 

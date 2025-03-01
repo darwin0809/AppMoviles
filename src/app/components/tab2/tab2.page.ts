@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { RickymortyServiceService } from 'src/app/services/rickymorty-service.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-tab2',
@@ -7,39 +9,50 @@ import { RickymortyServiceService } from 'src/app/services/rickymorty-service.se
   styleUrls: ['tab2.page.scss'],
   standalone: false,
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
+  episodios: any[] = [];
+  url_next: string | null = null;
 
-  personajes: any;
-  url_next: string = '';
-
-  constructor(private bd: RickymortyServiceService) { 
-    //this.cargarPersonajes();
-  }
+  constructor(private bd: RickymortyServiceService) {}
 
   ngOnInit() {
-    //Aqui realizo la carga real de los personajes, despues que toda la pagina
-    //ha sido cargada 
-    this.cargarPersonajes();
+    this.cargarEpisodios();
   }
 
+  async cargarEpisodios() {
+    try {
+      const resp: any = await firstValueFrom(this.bd.getAllEpisodios());
+      this.episodios = resp.results;
+      this.url_next = resp.info.next;
 
-  //El metodo que va a cargar los personajes
-  async cargarPersonajes() {
-    //this.cargando = true;
-    await this.bd
-      .getAllPersonajes()
-      .toPromise()
-      .then((resp: any) => {
-        //Aqui se realiza la asignacion de los personajes de la respuesta
-        this.personajes = resp.results;
-
-        console.log("MISPERSONAJES", this.personajes);
-
-        this.url_next = resp.info.next;
-        console.log("SIGUIENTE", this.url_next);
-
-      });
+      console.log("Episodios iniciales cargados:", this.episodios);
+      console.log("Siguiente página:", this.url_next);
+    } catch (error) {
+      console.error("Error al cargar los episodios:", error);
+    }
   }
 
+  async cargarEpisodiosSiguientes(event?: InfiniteScrollCustomEvent) {
+    if (!this.url_next) {
+      event?.target.complete();
+      return;
+    }
 
+    try {
+      const resp: any = await firstValueFrom(this.bd.getMasEpisodios(this.url_next));
+      this.episodios.push(...resp.results);
+      this.url_next = resp.info.next; // Actualizamos la URL de la siguiente página
+
+      console.log("Más episodios cargados:", resp.results);
+      console.log("Nueva siguiente página:", this.url_next);
+    } catch (error) {
+      console.error("Error al cargar más episodios:", error);
+    }
+
+    event?.target.complete();
+  }
+
+  onIonInfinite(event: any) {
+    this.cargarEpisodiosSiguientes(event);
+  }
 }

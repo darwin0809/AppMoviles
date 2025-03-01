@@ -1,3 +1,5 @@
-<p>
-  episodio-list works!
-</p>
+<ion-list>
+  <ng-container *ngFor="let episodio of episodios">
+    <app-episodio-card [episodio]="episodio"></app-episodio-card>
+  </ng-container>
+</ion-list>

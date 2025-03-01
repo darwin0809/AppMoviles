@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-episodio-list',
@@ -6,10 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./episodio-list.component.scss'],
   standalone: false
 })
-export class EpisodioListComponent  implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {}
-
+export class EpisodioListComponent {
+  @Input() episodios: any[] = [];
 }

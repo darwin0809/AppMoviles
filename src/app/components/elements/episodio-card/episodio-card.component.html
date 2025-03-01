@@ -1,3 +1,17 @@
-<p>
-  episodio-card works!
-</p>
+<ion-item 
+  (click)="togglePersonajes()" 
+  [ngClass]="{'episodio-seleccionado': episodioSeleccionado}">
+  {{ episodio.name }} - {{ episodio.episode }}
+</ion-item>
+
+<!-- Mostrar personajes debajo del episodio seleccionado -->
+<div *ngIf="episodioSeleccionado" class="personajes-contenedor">
+  <ion-list>
+    <ion-item *ngFor="let personaje of personajes">
+      <ion-avatar slot="start">
+        <img [src]="personaje.image" alt="{{ personaje.name }}" />
+      </ion-avatar>
+      {{ personaje.name }} - {{ personaje.species }}
+    </ion-item>
+  </ion-list>
+</div>

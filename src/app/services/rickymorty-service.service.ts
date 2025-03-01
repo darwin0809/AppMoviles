@@ -41,4 +41,16 @@ export class RickymortyServiceService {
       })
     );
   }
+  getMasPersonajes(url: string) {
+    return this.http.get(url).pipe(
+      map((res: any) => {
+        console.log("Cargando más personajes:", res);
+        return res;
+      })
+    );
+  }
+  
+  getMasEpisodios(url: string) {
+    return this.http.get(url);
+  }
 }
