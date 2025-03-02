@@ -1,8 +1,14 @@
 <ion-list>
+  <ion-list-header>
+    <ion-label><strong>{{titulo}} - {{subtitulo}}</strong></ion-label>
+  </ion-list-header>
+
   <ion-item *ngFor="let personaje of personajes">
     <ion-avatar slot="start">
       <img [src]="personaje.image" alt="{{ personaje.name }}" />
     </ion-avatar>
-    <ion-label>{{ personaje.name }} - {{ personaje.species }}</ion-label>
+    <ion-label>
+      {{ personaje.name }} - {{ personaje.species }}
+    </ion-label>
   </ion-item>
 </ion-list>

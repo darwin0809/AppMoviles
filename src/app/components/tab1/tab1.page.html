@@ -1,15 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Home
+      Rick y morty Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <ion-label>App de Estudiantes</ion-label>
-  
+  <!-- Fondo con el gif de Rick and Morty -->
+  <div class="background-container">
+    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/c50a4a55883023.5996f8afa3f5c.gif" alt="Rick and Morty gif" class="background-image">
+  </div>
 
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -17,9 +19,21 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Home page"></app-explore-container>
-
-  <ion-img src="https://docs-demo.ionic.io/assets/madison.jpg"
-    alt="The Wisconsin State Capitol building in Madison, WI at night"></ion-img>
-
 </ion-content>
+
+<style>
+  .background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Asegura que el fondo esté detrás del contenido */
+  }
+
+  .background-image {
+    width: 100%;
+    height: 100%;
+    object-fit:fill; 
+  }
+</style>
